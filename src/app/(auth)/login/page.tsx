@@ -1,7 +1,11 @@
-'use client'
+'use client';
+
+import { Login } from "@/components/login/Login";
 
 export default function Page() {
     return (
-        <div>Login</div>
+        <main className="min-h-screen flex items-center justify-center">
+             <Login />  
+        </main>
     );
 }
