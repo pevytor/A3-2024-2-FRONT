@@ -1,22 +1,28 @@
+import { IconDefinition } from "@fortawesome/free-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 type Props = {
     label: string;
-    size: 'small' | 'medium' | 'large';
+    size: 'medium' | 'large';
     icon?: IconDefinition;
+    cor?: 'light' | 'dark';
     onClick: () => void;
 }
 
-export const Button = ({ label, size, icon, onClick }: Props) => {
+export const Button = ({ label, size, cor, icon, onClick }: Props) => {
     return (
         <>
 
             <div
                 onClick={onClick}
-                className={`flex justify-center items-center cursor-pointer bg-white font-bold rounded-3xl
-                ${size === 'small' && 'h-7 text-xs'}
-                ${size === 'medium' && 'h-10 text-md'}
-                ${size === 'large' && 'h-14 text-lg'}
+                className={`flex justify-center items-center cursor-pointer select-none bg-white font-bold rounded-3xl gap-2
+                ${size === 'medium' && 'px-5 py-2 text-md'}
+                ${size === 'large' && 'px-7 py-3 text-lg'}
+                ${cor === 'light' && 'bg-white'}
+                ${cor === 'dark' && 'bg-zinc-100'}
                 `}
             >
+                {icon && <FontAwesomeIcon icon={icon} className="size-5" />}
                 {label}
             </div>
         </>

@@ -11,10 +11,14 @@ export const Header = () => {
 
     return (
         <>
-            <div className="w-full bg-zinc-700">
+            <div className="w-full bg-black bg-cover bg-center opacity-99"
+                style={{
+                    backgroundImage: `url('/assets/images/backg.png')`
+                }}
+            >
                 <div className="boxed flex justify-between items-center h-52">
                     <InfoHeader />
-                    <div className="w-36">
+                    <div className="hidden md:block">
                         <Button
                             label="Meus pedidos"
                             size="medium"
