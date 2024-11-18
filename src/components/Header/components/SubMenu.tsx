@@ -21,7 +21,9 @@ export const SubMenu = () => {
                 <div className="boxed flex justify-center md:justify-normal items-center h-16 gap-3">
                     <Button label="Na mesa" size="medium" cor="dark" icon={faChair} onClick={handleMesa} />
                     <Button label="Retirada" size="medium" cor="light" icon={faPersonWalking} onClick={handleRetirada} />
-                    <div><FontAwesomeIcon icon={faBagShopping} className="size-5 md:hidden" onClick={handlePedidos} /></div>
+                    <div className="px-5 py-2 cursor-pointer" onClick={handlePedidos}>
+                        <FontAwesomeIcon icon={faBagShopping} className="size-5 md:hidden" />
+                    </div>
                 </div>
             </div>
         </>

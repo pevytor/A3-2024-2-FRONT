@@ -10,7 +10,7 @@ export const InfoHeader = () => {
             <div>
                 <div className="font-bold text-xl md:text-2xl">Burger King</div>
                 <div className="hidden text-base md:block">Av. Salgado Filho, 1234 - Lagoa Nova, Natal, RN 59056005</div>
-                <div className="text-base"><span className="font-bold">Aberto</span>, faça seu pedido</div>
+                <div className="text-base"><span className="font-bold text-green-300">Aberto</span>, faça seu pedido</div>
             </div>
         </div>
     );
