@@ -4,11 +4,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export const SubMenu = () => {
     const handleMesa = () => {
-        alert('Na mesa')
+        alert('"Na mesa" já selecionado.')
     }
 
     const handleRetirada = () => {
-        alert('Retirada')
+        alert('"Retirada" Indisponível no momento')
     }
 
     const handlePedidos = () => {

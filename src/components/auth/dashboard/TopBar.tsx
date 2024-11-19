@@ -13,7 +13,7 @@ export const TopBar = () => {
     return (
         <div className="w-full flex items-center bg-zinc-800 h-20">
             <div className="boxed flex justify-between items-center w-full">
-                <div className="text-white text-2xl">Olá, {perfil.name}!</div>
+                <a href="/dashboard"><div className="text-white text-2xl">Olá, {perfil.name}!</div></a>
                 <div onClick={handleMenu} className="cursor-pointer rounded-full h-10 w-10 flex justify-center items-center">
                     <FontAwesomeIcon icon={faBars} className="size-7 text-white" />
                 </div>

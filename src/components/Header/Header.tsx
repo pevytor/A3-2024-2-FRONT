@@ -23,6 +23,7 @@ export const Header = () => {
                         <Button
                             label="Meus pedidos"
                             size="medium"
+                            cor="light"
                             onClick={headleMeusPedidos}
                         />
                     </div>
