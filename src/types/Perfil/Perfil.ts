@@ -1,7 +1,8 @@
-export type InfoPerfil = {
+export type Perfil = {
+    id: number;
     name: string;
     addres: string;
-    open: boolean;
     avatar: string;
     cover: string;
+    open: boolean;
 }
