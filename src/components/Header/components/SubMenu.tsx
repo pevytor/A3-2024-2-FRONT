@@ -22,7 +22,7 @@ export const SubMenu = () => {
                     <Button label="Na mesa" size="medium" cor="dark" icon={faChair} onClick={handleMesa} />
                     <Button label="Retirada" size="medium" cor="light" icon={faPersonWalking} onClick={handleRetirada} />
                     <div className="px-5 py-2 cursor-pointer" onClick={handlePedidos}>
-                        <FontAwesomeIcon icon={faBagShopping} className="size-5 md:hidden" />
+                        <FontAwesomeIcon icon={faBagShopping} className="size-5 hover:opacity-70 md:hidden" />
                     </div>
                 </div>
             </div>

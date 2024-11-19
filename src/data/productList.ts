@@ -48,5 +48,37 @@ export const productList: Product[] = [
         price: 18,
         category: 'Hamburguer',
         cover: '1.jpg'
+    },
+    {
+        id: 7,
+        title: 'X Classic',
+        description: 'Pão tradicional, Blend Bovino 150g, Queijo Mussarela, Alface, Tomate, Molho clássico de mostarda e ketchup.',
+        price: 18,
+        category: 'Pastel',
+        cover: 'p1.jpg'
+    },
+    {
+        id: 8,
+        title: 'X Classic',
+        description: 'Pão tradicional, Blend Bovino 150g, Queijo Mussarela, Alface, Tomate, Molho clássico de mostarda e ketchup.',
+        price: 18,
+        category: 'Pastel',
+        cover: 'p1.jpg'
+    },
+    {
+        id: 9,
+        title: 'X Classic',
+        description: 'Pão tradicional, Blend Bovino 150g, Queijo Mussarela, Alface, Tomate, Molho clássico de mostarda e ketchup.',
+        price: 18,
+        category: 'Bebidas',
+        cover: 'b1.jpg'
+    },
+    {
+        id: 10,
+        title: 'Guaraná Antarctica',
+        description: 'Guaraná Antarctica Zero',
+        price: 18,
+        category: 'Bebidas',
+        cover: 'b2.jpg'
     }
 ];
