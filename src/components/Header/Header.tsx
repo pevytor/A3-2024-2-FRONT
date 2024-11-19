@@ -16,7 +16,7 @@ export const Header = () => {
                     backgroundImage: `url('/assets/images/backg.png')`
                 }}
             >
-                <div className="boxed flex justify-between items-center h-52">
+                <div className="boxed flex justify-between items-center h-44 md:h-52">
                     <InfoHeader />
                     <div className="hidden md:block">
                         <Button

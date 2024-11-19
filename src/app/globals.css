@@ -18,3 +18,13 @@ body {
 .boxed {
   @apply max-w-6xl mx-auto px-4;
 }
+
+/* Para esconder a barra de rolagem no iPhone e Safari */
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
