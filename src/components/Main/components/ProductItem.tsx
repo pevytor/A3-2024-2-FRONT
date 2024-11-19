@@ -17,7 +17,7 @@ export const ProductItem = ({ product, onClick }: Props) => {
             <div className="ml-3 flex-1 flex flex-col justify-between">
                 <div>
                     <div className="font-bold">{product.title}</div>
-                    <div className="text-zinc-400 line-clamp-2">{product.description}</div>
+                    <div className="text-zinc-400 line-clamp-2 leading-tight">{product.description}</div>
                 </div>
 
                 <div className="flex justify-between items-center mt-auto">
