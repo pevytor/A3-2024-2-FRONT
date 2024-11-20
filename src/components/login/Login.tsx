@@ -46,7 +46,7 @@ export const Login = () => {
           </div>
 
           <div style={{ marginBottom: '10px' }}>
-            <label htmlFor="password">Password:</label>
+            <label htmlFor="password">Senha:</label>
             <input
               type="password"
               id="password"
