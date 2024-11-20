@@ -6,6 +6,7 @@ import { TopBar } from "@/components/auth/dashboard/TopBar";
 import { Products } from "@/components/main/components/Products";
 import { productList } from "@/data/productList";
 import { Product } from "@/types/Products/Product";
+import { Footer } from "@/components/footer/Footer";
 
 export default function Page() {
     const [products, setProducts] = useState<Product[]>(productList);
@@ -53,6 +54,7 @@ export default function Page() {
                     onDelete={handleDeleteProduct}
                 />
             </div>
+            <Footer />
         </div>
     );
 }

@@ -12,7 +12,7 @@ export const Header = () => {
 
     return (
         <>
-            <div className="w-full bg-black bg-cover bg-center opacity-99"
+            <div className="w-full bg-black bg-cover bg-center opacity-99 px-1"
                 style={{
                     backgroundImage: `url('/assets/images/${perfil.cover}')`
                 }}
