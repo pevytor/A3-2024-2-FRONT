@@ -64,7 +64,7 @@ export const Login = () => {
           </div>
           <div style={{ textAlign: 'center', marginTop: '20px' }}>
           <p>Não tem uma conta?</p>
-        <Link href="/signup" style={{ color: "blue", textDecoration: "underline" }}>
+        <Link href="http://localhost:3000/signup" style={{ color: "blue", textDecoration: "underline" }}>
         Crie sua conta
         </Link>
             </div>
