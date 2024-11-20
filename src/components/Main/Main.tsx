@@ -1,9 +1,12 @@
-import { useState, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Categories } from "./components/Categories";
 import { Products } from "./components/Products";
+import { productList } from "@/data/productList";  // Supondo que você tenha essa lista
+import { Product } from "@/types/Products/Product";
 
 export const Main = () => {
     const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+    const [products, setProducts] = useState<Product[]>(productList); // Definindo a lista de produtos
 
     // Criar referência para as categorias
     const categoryRefs = useRef<Record<string, HTMLDivElement | null>>({});
@@ -25,7 +28,11 @@ export const Main = () => {
                 <Categories onCategorySelect={handleCategorySelect} />
 
                 {/* Componente de Produtos */}
-                <Products category={selectedCategory} categoryRefs={categoryRefs} />
+                <Products
+                    category={selectedCategory}
+                    categoryRefs={categoryRefs}
+                    products={products} // Passando a lista de produtos aqui
+                />
             </div>
         </div>
     );

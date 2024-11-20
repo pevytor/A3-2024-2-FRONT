@@ -1,19 +1,29 @@
-import { productList } from "@/data/productList";
+import { Product } from "@/types/Products/Product";
 import { ProductItem } from "@/components/main/components/ProductItem";
 
-export const Products = ({
-    category,
-    categoryRefs,
-}: {
+interface ProductsProps {
     category: string | null;
     categoryRefs: React.RefObject<Record<string, HTMLDivElement | null>>;
+    products: Product[];
+    onAdd?: () => void;
+    onEdit?: (productId: number) => void;
+    onDelete?: (productId: number) => void;
+}
+
+export const Products: React.FC<ProductsProps> = ({
+    category,
+    categoryRefs,
+    products,
+    onAdd,
+    onEdit,
+    onDelete,
 }) => {
-    // Agrupa produtos por categoria
-    const groupedProducts = productList.reduce((acc, product) => {
+    const groupedProducts = products?.reduce((acc, product) => {
         if (!acc[product.category]) acc[product.category] = [];
         acc[product.category].push(product);
         return acc;
-    }, {} as Record<string, typeof productList>);
+    }, {} as Record<string, Product[]>) || {};  // Garantindo que seja um objeto vazio caso products seja undefined
+
 
     return (
         <div>
@@ -27,13 +37,25 @@ export const Products = ({
                     }}
                     className="mb-6"
                 >
-                    {/* Título da Categoria */}
-                    <h2 className="text-xl font-bold mb-3">{categoryName}</h2>
+                    <h2 className="text-xl font-bold mb-3 flex justify-between items-center">
+                        {categoryName}
+                        {onAdd && (
+                            <button
+                                className="text-sm text-blue-500"
+                                onClick={onAdd}
+                            >
+                                + Adicionar
+                            </button>
+                        )}
+                    </h2>
 
-                    {/* Produtos da Categoria */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                         {products.map((product) => (
-                            <ProductItem key={product.id} product={product} onClick={() => { }} />
+                            <ProductItem
+                                key={product.id}
+                                product={product}
+                                onClick={() => { }}
+                            />
                         ))}
                     </div>
                 </div>

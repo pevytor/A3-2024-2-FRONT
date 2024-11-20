@@ -1,16 +1,24 @@
-import { Categories } from "@/components/main/components/Categories";
+import React from "react";
 import { Button } from "@/components/ui/Button";
 
-export const Navbar = () => {
-    const handleAdd = () => {
+interface NavbarProps {
+    onAdd?: () => void;
+}
 
-    }
+export const Navbar: React.FC<NavbarProps> = ({ onAdd }) => {
     return (
         <div className="flex justify-between items-center">
-            <Categories />
+            <div>Categorias</div>
             <div>
-                <Button label="Adicionar novo item" size="medium" cor="sky" onClick={handleAdd} />
+                {onAdd && (
+                    <Button
+                        label="Adicionar novo item"
+                        size="medium"
+                        cor="sky"
+                        onClick={onAdd}
+                    />
+                )}
             </div>
         </div>
     );
-}
+};
