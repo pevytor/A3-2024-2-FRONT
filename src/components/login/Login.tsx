@@ -1,4 +1,6 @@
+import Link from "next/link";
 import { useState } from "react";
+import { format } from "path";
 export const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -57,9 +59,15 @@ export const Login = () => {
           {error && <p style={{ color: 'red' }}>{error}</p>}
           <div className="bg-zinc-400" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
             <button type="submit" style={{ padding: '10px' }}>
-              Cadastrar
+              Login
             </button>
           </div>
+          <div style={{ textAlign: 'center', marginTop: '20px' }}>
+          <p>Não tem uma conta?</p>
+        <Link href="/signup" style={{ color: "blue", textDecoration: "underline" }}>
+        Crie sua conta
+        </Link>
+            </div>
         </form>
       </div>
     </div>
