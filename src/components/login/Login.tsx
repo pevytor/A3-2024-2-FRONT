@@ -1,7 +1,5 @@
 import Link from "next/link";
 import { useState } from "react";
-import { format } from "path";
-import { Logo } from "../ui/Logo";
 import { LogoDark } from "../ui/LogoDark";
 export const Login = () => {
   const [email, setEmail] = useState('');
@@ -51,8 +49,13 @@ export const Login = () => {
             />
           </div>
 
-          <div style={{ marginBottom: '10px' }}>
-            <label htmlFor="password">Password:</label>
+          <div className="mb-4">
+            <label
+              htmlFor="password"
+              className="block text-gray-700 font-medium mb-2"
+            >
+              Senha:
+            </label>
             <input
               type="password"
               id="password"
@@ -90,9 +93,3 @@ export const Login = () => {
     </div>
   );
 }
-
-
-
-
-
-
