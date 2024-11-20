@@ -42,14 +42,17 @@ export default function Page() {
             <div className="boxed flex flex-col mt-5 gap-7">
                 <Navbar onAdd={handleAddProduct} />
             </div>
-            <Products
-                category={null}
-                categoryRefs={React.createRef()}
-                products={products}
-                onAdd={handleAddProduct}
-                onEdit={handleEditProduct}
-                onDelete={handleDeleteProduct}
-            />
+
+            <div className="boxed">
+                <Products
+                    category={null}
+                    categoryRefs={React.createRef()}
+                    products={products}
+                    onAdd={handleAddProduct}
+                    onEdit={handleEditProduct}
+                    onDelete={handleDeleteProduct}
+                />
+            </div>
         </div>
     );
 }

@@ -7,8 +7,7 @@ interface NavbarProps {
 
 export const Navbar: React.FC<NavbarProps> = ({ onAdd }) => {
     return (
-        <div className="flex justify-between items-center">
-            <div>Categorias</div>
+        <div className="flex self-end">
             <div>
                 {onAdd && (
                     <Button
