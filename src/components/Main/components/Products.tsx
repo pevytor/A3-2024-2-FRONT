@@ -52,7 +52,6 @@ export const Products: React.FC<ProductsProps> = ({
                                     cover: "imagem.jpg", // Defina um valor de imagem padrão
                                 })}
                             >
-                                + Adicionar
                             </button>
                         )}
                     </h2>

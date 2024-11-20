@@ -6,17 +6,20 @@ interface ProductFormProps {
     onCancel: () => void;
 }
 
-
 export const ProductForm: React.FC<ProductFormProps> = ({ onSubmit, onCancel }) => {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
-    const [price, setPrice] = useState(0);
+    const [price, setPrice] = useState<number | "">(''); // O preço pode ser número ou string vazia
     const [category, setCategory] = useState("");
     const [cover, setCover] = useState("");
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        onSubmit({ title, description, price, category, cover });
+
+        // Garantindo que price seja um número, ou 0 se estiver vazio
+        const priceValue = price === "" ? 0 : price;
+
+        onSubmit({ title, description, price: priceValue, category, cover });
     };
 
     return (
@@ -50,7 +53,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({ onSubmit, onCancel }) 
                     type="number"
                     id="price"
                     value={price}
-                    onChange={(e) => setPrice(Number(e.target.value))}
+                    onChange={(e) => setPrice(e.target.value === "" ? "" : Number(e.target.value))}
                     className="mt-1 block w-full border border-gray-300 rounded-md p-2"
                     required
                 />
