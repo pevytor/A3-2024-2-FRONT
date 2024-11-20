@@ -51,13 +51,8 @@ export const Login = () => {
             />
           </div>
 
-          <div className="mb-4">
-            <label
-              htmlFor="password"
-              className="block text-gray-700 font-medium mb-2"
-            >
-              Senha:
-            </label>
+          <div style={{ marginBottom: '10px' }}>
+            <label htmlFor="password">Password:</label>
             <input
               type="password"
               id="password"
