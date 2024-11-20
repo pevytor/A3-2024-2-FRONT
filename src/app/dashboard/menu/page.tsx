@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import React, { useState } from "react";
 import { Navbar } from "@/components/auth/dashboard/menu/Navbar";
@@ -7,20 +7,26 @@ import { Products } from "@/components/main/components/Products";
 import { productList } from "@/data/productList";
 import { Product } from "@/types/Products/Product";
 import { Footer } from "@/components/footer/Footer";
+import { Modal } from "@/components/ui/Modal";
+import { ProductForm } from "@/components/ui/ProductForm"; // Importando o formulário
 
 export default function Page() {
     const [products, setProducts] = useState<Product[]>(productList);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
-    const handleAddProduct = () => {
+    const handleModal = () => {
+        setIsModalOpen((prev) => !prev); // Alterna entre aberto e fechado
+    };
+
+    // Função para adicionar um produto
+    const handleAddProduct = (newProductData: Omit<Product, 'id'>) => {
         const newProduct: Product = {
-            id: Date.now(), // Gera um ID único
-            title: "Novo Produto",
-            description: "Descrição do novo produto",
-            price: 0,
-            category: "Categoria",
-            cover: "imagem.jpg",
+            ...newProductData,  // Mantém os dados preenchidos no formulário
+            id: Date.now(),  // Gera um id único baseado no timestamp atual
         };
+
         setProducts([...products, newProduct]);
+        handleModal(); // Fecha o modal após adicionar
     };
 
     const handleEditProduct = (productId: number) => {
@@ -38,23 +44,31 @@ export default function Page() {
     };
 
     return (
-        <div className="w-screen h-screen gap-3">
-            <TopBar />
-            <div className="boxed flex flex-col mt-5 gap-7">
-                <Navbar onAdd={handleAddProduct} />
+        <>
+            <div className="w-screen h-screen gap-3">
+                <TopBar />
+                <div className="boxed flex flex-col mt-5 gap-7">
+                    <Navbar onAdd={handleModal} />
+                </div>
+
+                <div className="boxed">
+                    <Products
+                        category={null}
+                        categoryRefs={React.createRef()}
+                        products={products}
+                        onAdd={handleAddProduct}  // Passando a função correta para adicionar um produto
+                        onEdit={handleEditProduct}
+                        onDelete={handleDeleteProduct}
+                    />
+                </div>
+                <Footer />
             </div>
 
-            <div className="boxed">
-                <Products
-                    category={null}
-                    categoryRefs={React.createRef()}
-                    products={products}
-                    onAdd={handleAddProduct}
-                    onEdit={handleEditProduct}
-                    onDelete={handleDeleteProduct}
-                />
-            </div>
-            <Footer />
-        </div>
+            {/* Modal */}
+            <Modal isOpen={isModalOpen} onClose={handleModal}>
+                <h2 className="text-xl font-bold mb-4">Adicionar Produto</h2>
+                <ProductForm onSubmit={handleAddProduct} onCancel={handleModal} />
+            </Modal>
+        </>
     );
 }

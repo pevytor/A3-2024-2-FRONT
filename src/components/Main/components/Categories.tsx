@@ -7,7 +7,6 @@ export const Categories = ({ onCategorySelect }: { onCategorySelect: (category: 
 
     return (
         <div className="flex gap-3 overflow-x-auto whitespace-nowrap scrollbar-none">
-            {/* Botão para Todas as Categorias */}
             <Button
                 label="Todas"
                 size="medium"

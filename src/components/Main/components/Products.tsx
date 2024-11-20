@@ -5,10 +5,11 @@ interface ProductsProps {
     category: string | null;
     categoryRefs: React.RefObject<Record<string, HTMLDivElement | null>>;
     products: Product[];
-    onAdd?: () => void;
+    onAdd?: (newProduct: Product) => void; // Agora, onAdd aceita um objeto do tipo 'Product' completo
     onEdit?: (productId: number) => void;
     onDelete?: (productId: number) => void;
 }
+
 
 export const Products: React.FC<ProductsProps> = ({
     category,
@@ -42,7 +43,14 @@ export const Products: React.FC<ProductsProps> = ({
                         {onAdd && (
                             <button
                                 className="text-sm text-blue-500"
-                                onClick={onAdd}
+                                onClick={() => onAdd({
+                                    id: Date.now(), // Gerando um id único temporário
+                                    title: "Novo Produto", // Defina valores padrão
+                                    description: "Descrição do novo produto",
+                                    price: 0,
+                                    category: categoryName,
+                                    cover: "imagem.jpg", // Defina um valor de imagem padrão
+                                })}
                             >
                                 + Adicionar
                             </button>
