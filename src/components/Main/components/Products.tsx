@@ -5,7 +5,7 @@ interface ProductsProps {
     category: string | null;
     categoryRefs: React.RefObject<Record<string, HTMLDivElement | null>>;
     products: Product[];
-    onAdd?: (newProduct: Product) => void; // Agora, onAdd aceita um objeto do tipo 'Product' completo
+    onAdd?: (newProduct: Product) => void;
     onEdit?: (productId: number) => void;
     onDelete?: (productId: number) => void;
 }
@@ -23,7 +23,7 @@ export const Products: React.FC<ProductsProps> = ({
         if (!acc[product.category]) acc[product.category] = [];
         acc[product.category].push(product);
         return acc;
-    }, {} as Record<string, Product[]>) || {};  // Garantindo que seja um objeto vazio caso products seja undefined
+    }, {} as Record<string, Product[]>) || {};
 
 
     return (
@@ -49,7 +49,7 @@ export const Products: React.FC<ProductsProps> = ({
                                     description: "Descrição do novo produto",
                                     price: 0,
                                     category: categoryName,
-                                    cover: "imagem.jpg", // Defina um valor de imagem padrão
+                                    cover: "imagem.jpg",
                                 })}
                             >
                             </button>

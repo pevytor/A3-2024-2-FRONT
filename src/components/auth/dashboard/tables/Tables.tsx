@@ -4,16 +4,16 @@ import { TableItem } from "@/components/auth/dashboard/tables/TableItem";
 import { Button } from "@/components/ui/Button";
 
 export const Tables = () => {
-    // Estado para armazenar a lista de mesas
+
     const [tables, setTables] = useState(initialTableList);
 
-    // Função para adicionar uma nova mesa
+
     const handleAdd = () => {
         const newTable = {
-            id: tables.length + 1, // Gera um novo ID sequencial
-            open: true,           // Define o estado inicial como fechado
+            id: tables.length + 1,
+            open: true, // Define o estado inicial como fechado
         };
-        setTables([...tables, newTable]); // Atualiza o estado com a nova mesa
+        setTables([...tables, newTable]);
     };
 
     return (

@@ -8,7 +8,7 @@ import { productList } from "@/data/productList";
 import { Product } from "@/types/Products/Product";
 import { Footer } from "@/components/footer/Footer";
 import { Modal } from "@/components/ui/Modal";
-import { ProductForm } from "@/components/ui/ProductForm"; // Importando o formulário
+import { ProductForm } from "@/components/ui/ProductForm";
 
 export default function Page() {
     const [products, setProducts] = useState<Product[]>(productList);
@@ -26,7 +26,7 @@ export default function Page() {
         };
 
         setProducts([...products, newProduct]);
-        handleModal(); // Fecha o modal após adicionar
+        handleModal();
     };
 
     const handleEditProduct = (productId: number) => {
@@ -64,7 +64,6 @@ export default function Page() {
                 <Footer />
             </div>
 
-            {/* Modal */}
             <Modal isOpen={isModalOpen} onClose={handleModal}>
                 <h2 className="text-xl font-bold mb-4">Adicionar Produto</h2>
                 <ProductForm onSubmit={handleAddProduct} onCancel={handleModal} />

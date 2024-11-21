@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Categories } from "./components/Categories";
 import { Products } from "./components/Products";
-import { productList } from "@/data/productList";  // Supondo que você tenha essa lista
+import { productList } from "@/data/productList";
 import { Product } from "@/types/Products/Product";
 
 export const Main = () => {
@@ -24,10 +24,8 @@ export const Main = () => {
     return (
         <div className="w-full py-5 px-1">
             <div className="boxed flex flex-col gap-7">
-                {/* Componente de Categorias */}
                 <Categories onCategorySelect={handleCategorySelect} />
 
-                {/* Componente de Produtos */}
                 <Products
                     category={selectedCategory}
                     categoryRefs={categoryRefs}

@@ -12,7 +12,7 @@ export const SubMenu = () => {
     }
 
     const handlePedidos = () => {
-        alert('Meus pedidos')
+        alert('Meus pedidos');
     }
 
     return (
