@@ -1,5 +1,6 @@
 'use client'
 
+import { Profile } from "@/components/auth/dashboard/profile/Profile";
 import { TopBar } from "@/components/auth/dashboard/TopBar";
 import { Footer } from "@/components/footer/Footer";
 
@@ -8,7 +9,7 @@ export default function Page() {
         <>
             <div className="w-screen h-screen gap-3">
                 <TopBar />
-                <div>Editar perfil</div>
+                <Profile />
             </div>
             <Footer />
         </>
