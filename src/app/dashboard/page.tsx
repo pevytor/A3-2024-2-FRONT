@@ -1,8 +1,8 @@
 'use client'
 
-import { BoxMenu } from "@/components/auth/dashboard/BoxMenu";
-import { OrdersList } from "@/components/auth/dashboard/OrdersList/OrdersList";
-import { TopBar } from "@/components/auth/dashboard/TopBar";
+import { BoxMenu } from "@/components/dashboard/BoxMenu";
+import { OrdersList } from "@/components/dashboard/OrdersList/OrdersList";
+import { TopBar } from "@/components/dashboard/TopBar";
 import { Footer } from "@/components/footer/Footer";
 
 export default function Page() {

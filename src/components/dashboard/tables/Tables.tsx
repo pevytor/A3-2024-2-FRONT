@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { tableList as initialTableList } from "@/data/tableList";
-import { TableItem } from "@/components/auth/dashboard/tables/TableItem";
+import { TableItem } from "@/components/dashboard/tables/TableItem";
 import { Button } from "@/components/ui/Button";
 
 export const Tables = () => {

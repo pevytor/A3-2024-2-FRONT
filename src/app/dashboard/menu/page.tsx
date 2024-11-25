@@ -1,8 +1,8 @@
 'use client';
 
 import React, { useState } from "react";
-import { Navbar } from "@/components/auth/dashboard/menu/Navbar";
-import { TopBar } from "@/components/auth/dashboard/TopBar";
+import { Navbar } from "@/components/dashboard/menu/Navbar";
+import { TopBar } from "@/components/dashboard/TopBar";
 import { Products } from "@/components/main/components/Products";
 import { productList } from "@/data/productList";
 import { Product } from "@/types/Products/Product";

@@ -1,6 +1,6 @@
 'use client'
 
-import { TopBar } from "@/components/auth/dashboard/TopBar";
+import { TopBar } from "@/components/dashboard/TopBar";
 import { Footer } from "@/components/footer/Footer";
 
 export default function Page() {

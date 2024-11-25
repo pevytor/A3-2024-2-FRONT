@@ -1,7 +1,7 @@
 'use client'
 
-import { Profile } from "@/components/auth/dashboard/profile/Profile";
-import { TopBar } from "@/components/auth/dashboard/TopBar";
+import { Profile } from "@/components/dashboard/profile/Profile";
+import { TopBar } from "@/components/dashboard/TopBar";
 import { Footer } from "@/components/footer/Footer";
 
 export default function Page() {

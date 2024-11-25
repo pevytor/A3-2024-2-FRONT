@@ -1,7 +1,7 @@
 'use client'
 
-import { Tables } from "@/components/auth/dashboard/tables/Tables";
-import { TopBar } from "@/components/auth/dashboard/TopBar";
+import { Tables } from "@/components/dashboard/tables/Tables";
+import { TopBar } from "@/components/dashboard/TopBar";
 import { Footer } from "@/components/footer/Footer";
 
 export default function Page() {
