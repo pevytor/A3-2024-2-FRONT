@@ -22,25 +22,11 @@ export default function Page() {
     const handleAddProduct = (newProductData: Omit<Product, 'id'>) => {
         const newProduct: Product = {
             ...newProductData,  // Mantém os dados preenchidos no formulário
-            id: Date.now(),  // Gera um id único baseado no timestamp atual
+            id: products.length + 1,  // Gerando um id único e sequencial
         };
 
         setProducts([...products, newProduct]);
         handleModal();
-    };
-
-    const handleEditProduct = (productId: number) => {
-        setProducts(
-            products.map((product) =>
-                product.id === productId
-                    ? { ...product, title: "Produto Editado" }
-                    : product
-            )
-        );
-    };
-
-    const handleDeleteProduct = (productId: number) => {
-        setProducts(products.filter((product) => product.id !== productId));
     };
 
     return (
@@ -57,8 +43,6 @@ export default function Page() {
                         categoryRefs={React.createRef()}
                         products={products}
                         onAdd={handleAddProduct}  // Passando a função correta para adicionar um produto
-                        onEdit={handleEditProduct}
-                        onDelete={handleDeleteProduct}
                     />
                 </div>
                 <Footer />

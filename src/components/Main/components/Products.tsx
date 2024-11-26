@@ -6,25 +6,19 @@ interface ProductsProps {
     categoryRefs: React.RefObject<Record<string, HTMLDivElement | null>>;
     products: Product[];
     onAdd?: (newProduct: Product) => void;
-    onEdit?: (productId: number) => void;
-    onDelete?: (productId: number) => void;
 }
-
 
 export const Products: React.FC<ProductsProps> = ({
     category,
     categoryRefs,
     products,
     onAdd,
-    onEdit,
-    onDelete,
 }) => {
     const groupedProducts = products?.reduce((acc, product) => {
         if (!acc[product.category]) acc[product.category] = [];
         acc[product.category].push(product);
         return acc;
     }, {} as Record<string, Product[]>) || {};
-
 
     return (
         <div>
@@ -40,20 +34,6 @@ export const Products: React.FC<ProductsProps> = ({
                 >
                     <h2 className="text-xl font-bold mb-3 flex justify-between items-center">
                         {categoryName}
-                        {onAdd && (
-                            <button
-                                className="text-sm text-blue-500"
-                                onClick={() => onAdd({
-                                    id: Date.now(), // Gerando um id único temporário
-                                    title: "Novo Produto", // Defina valores padrão
-                                    description: "Descrição do novo produto",
-                                    price: 0,
-                                    category: categoryName,
-                                    cover: "imagem.jpg",
-                                })}
-                            >
-                            </button>
-                        )}
                     </h2>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
