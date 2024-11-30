@@ -1,3 +1,5 @@
+// src/components/main/components/Products.tsx
+import React from "react";
 import { Product } from "@/types/Products/Product";
 import { ProductItem } from "@/components/main/components/ProductItem";
 
@@ -8,20 +10,17 @@ interface ProductsProps {
     onAdd?: (newProduct: Product) => void;
 }
 
-export const Products: React.FC<ProductsProps> = ({
-    category,
-    categoryRefs,
-    products,
-    onAdd,
-}) => {
-    const groupedProducts = products?.reduce((acc, product) => {
+export const Products: React.FC<ProductsProps> = ({ category, categoryRefs, products, onAdd }) => {
+    // Agrupar os produtos pela categoria
+    const groupedProducts = products.reduce((acc, product) => {
         if (!acc[product.category]) acc[product.category] = [];
         acc[product.category].push(product);
         return acc;
-    }, {} as Record<string, Product[]>) || {};
+    }, {} as Record<string, Product[]>);
 
     return (
         <div>
+            {/* Exibindo as categorias e os produtos */}
             {Object.entries(groupedProducts).map(([categoryName, products]) => (
                 <div
                     key={categoryName}
@@ -32,16 +31,14 @@ export const Products: React.FC<ProductsProps> = ({
                     }}
                     className="mb-6"
                 >
-                    <h2 className="text-xl font-bold mb-3 flex justify-between items-center">
-                        {categoryName}
-                    </h2>
+                    <h2 className="text-xl font-bold mb-3">{categoryName}</h2>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
                         {products.map((product) => (
                             <ProductItem
                                 key={product.id}
                                 product={product}
-                                onClick={() => { }}
+                                onClick={() => console.log(`Produto ${product.title} clicado`)} // Exemplo de função de clique
                             />
                         ))}
                     </div>
