@@ -9,7 +9,7 @@ type Props = {
 export const TableItem = ({ table }: Props) => {
     return (
         <div
-            className={`flex text-white min-w-28 items-center text-center gap-3 rounded-lg p-5
+            className={`flex text-white min-w-28 items-center text-center cursor-pointer gap-3 rounded-lg p-5
         ${table.open ? 'bg-sky-600' : 'bg-zinc-600'}
     `}
         >

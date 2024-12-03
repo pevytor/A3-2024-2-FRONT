@@ -33,7 +33,7 @@ export const Products: React.FC<ProductsProps> = ({ category, categoryRefs, prod
                 >
                     <h2 className="text-xl font-bold mb-3">{categoryName}</h2>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                         {products.map((product) => (
                             <ProductItem
                                 key={product.id}

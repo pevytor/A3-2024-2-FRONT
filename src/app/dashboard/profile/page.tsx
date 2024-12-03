@@ -7,9 +7,11 @@ import { Footer } from "@/components/footer/Footer";
 export default function Page() {
     return (
         <>
-            <div className="w-screen h-screen gap-3">
+            <div className="w-screen h-screen">
                 <TopBar />
-                <Profile />
+                <div className="boxed flex flex-col mt-5 gap-7">
+                    <Profile />
+                </div>
             </div>
             <Footer />
         </>
