@@ -2,37 +2,49 @@
 
 import { Button } from "@/components/ui/Button";
 import { faUpload } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
-import { perfilList } from "@/data/perfilList";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { usePerfilContext } from "@/contexts/PerfilContext";
+import { useState } from "react";
+import { faCheckCircle, faTimesCircle } from "@fortawesome/free-regular-svg-icons";
 
 export const Profile = () => {
-    const perfil = perfilList[0];
+    const { dataPerfil, setDataPerfil } = usePerfilContext();
 
-    // Estados para os campos do formulário
-    const [nome, setNome] = useState(perfil.name); // Nome padrão vindo do perfil
     const [novaSenha, setNovaSenha] = useState("");
     const [confirmarSenha, setConfirmarSenha] = useState("");
-    const [fileName, setFileName] = useState("");
-    const [fileName2, setFileName2] = useState("");
 
-    const handleAdd = () => {
-        // Função para salvar alterações
-        if (novaSenha && novaSenha === confirmarSenha) {
-            alert("Alterações salvas com sucesso!");
-        } else if (novaSenha !== confirmarSenha) {
-            alert("As senhas não coincidem!");
-        } else {
-            alert("Preencha os campos de senha!");
+    const handleSave = () => {
+        if (novaSenha || confirmarSenha) {
+            // Validar somente se os campos de senha estiverem preenchidos
+            if (novaSenha === confirmarSenha) {
+                alert("Alterações salvas com sucesso!");
+            } else {
+                alert("As senhas não coincidem!");
+                return;
+            }
         }
+
+        // Atualizar os dados do perfil
+        setDataPerfil((prev) => ({
+            ...prev,
+            name: dataPerfil.name,
+            addres: dataPerfil.addres,
+            open: dataPerfil.open,
+        }));
+
+        alert("Alterações gerais salvas com sucesso!");
     };
 
-    const handleFileChange = (event, setFileNameCallback) => {
-        const file = event.target.files[0];
+    const handleFileChange = (
+        event: React.ChangeEvent<HTMLInputElement>,
+        field: "avatar" | "cover"
+    ) => {
+        const file = event.target.files?.[0];
         if (file) {
-            setFileNameCallback(file.name);
-        } else {
-            setFileNameCallback(""); // Reseta se nenhum arquivo for selecionado
+            setDataPerfil((prev) => ({
+                ...prev,
+                [field]: URL.createObjectURL(file),
+            }));
         }
     };
 
@@ -40,7 +52,7 @@ export const Profile = () => {
         <>
             <div className="flex justify-between items-center mb-4">
                 <div className="text-xl font-bold">EDITAR PERFIL</div>
-                <Button label="Salvar alterações" size="medium" cor="sky" onClick={handleAdd} />
+                <Button label="Salvar alterações" size="medium" cor="sky" onClick={handleSave} />
             </div>
             <div className="flex flex-col md:flex-row gap-5">
                 <div className="flex-1 flex-col gap-10">
@@ -51,15 +63,28 @@ export const Profile = () => {
                         <input
                             id="estabelecimento-nome"
                             type="text"
-                            value={nome}
-                            onChange={(e) => setNome(e.target.value)}
+                            value={dataPerfil.name}
+                            onChange={(e) => setDataPerfil({ ...dataPerfil, name: e.target.value })}
+                            className="w-full h-12 rounded-md text-lg p-3 mt-2 border border-gray-300 outline-none"
+                        />
+                    </div>
+
+                    <div className="mb-4">
+                        <label htmlFor="endereco" className="text-base font-bold text-gray-500">
+                            Endereço
+                        </label>
+                        <input
+                            id="endereco"
+                            type="text"
+                            value={dataPerfil.addres}
+                            onChange={(e) => setDataPerfil({ ...dataPerfil, addres: e.target.value })}
                             className="w-full h-12 rounded-md text-lg p-3 mt-2 border border-gray-300 outline-none"
                         />
                     </div>
 
                     <div className="mb-4">
                         <label htmlFor="alterar-senha" className="text-base font-bold text-gray-500">
-                            Alterar senha
+                            Alterar senha (opcional)
                         </label>
                         <input
                             id="alterar-senha"
@@ -73,7 +98,7 @@ export const Profile = () => {
 
                     <div className="mb-4">
                         <label htmlFor="confirmar-senha" className="text-base font-bold text-gray-500">
-                            Confirme nova senha
+                            Confirme nova senha (opcional)
                         </label>
                         <input
                             id="confirmar-senha"
@@ -84,27 +109,51 @@ export const Profile = () => {
                             className="w-full h-12 rounded-md text-lg p-3 mt-2 border border-gray-300 outline-none"
                         />
                     </div>
+
+                    <div className="mb-4 flex items-center space-x-4">
+                        <label htmlFor="status" className="text-base font-bold text-gray-500">
+                            Estabelecimento Aberto
+                        </label>
+
+                        <div className="flex items-center">
+                            {/* Ícone de status baseado no estado do checkbox */}
+                            <FontAwesomeIcon
+                                icon={dataPerfil.open ? faCheckCircle : faTimesCircle} // Usando as variáveis importadas
+                                className={`mr-2 text-2xl ${dataPerfil.open ? 'text-green-500' : 'text-red-500'}`}
+                            />
+
+                            {/* Checkbox para mudar o status */}
+                            <input
+                                id="status"
+                                type="checkbox"
+                                checked={dataPerfil.open}
+                                onChange={(e) => setDataPerfil({ ...dataPerfil, open: e.target.checked })}
+                                className="form-checkbox h-5 w-5 text-green-500"
+                            />
+                        </div>
+                    </div>
+
+
                 </div>
+
                 <div className="flex flex-col flex-1 gap-3 mt-8">
-                    {/* Upload de arquivo */}
                     <label className="flex items-center justify-center text-gray-500 font-bold bg-white p-3 rounded-lg cursor-pointer hover:bg-zinc-200">
                         <FontAwesomeIcon icon={faUpload} className="mr-2 size-5" />
-                        {fileName || "Selecionar foto de perfil"}
+                        {dataPerfil.avatar ? "Alterar foto de perfil" : "Selecionar foto de perfil"}
                         <input
                             type="file"
                             className="hidden"
-                            onChange={(e) => handleFileChange(e, setFileName)}
+                            onChange={(e) => handleFileChange(e, "avatar")}
                         />
                     </label>
 
-                    {/* Upload de capa */}
                     <label className="flex items-center justify-center bg-white text-gray-500 font-bold p-3 rounded-lg cursor-pointer hover:bg-zinc-200">
                         <FontAwesomeIcon icon={faUpload} className="mr-2 size-5" />
-                        {fileName2 || "Selecionar foto de capa"}
+                        {dataPerfil.cover ? "Alterar foto de capa" : "Selecionar foto de capa"}
                         <input
                             type="file"
                             className="hidden"
-                            onChange={(e) => handleFileChange(e, setFileName2)}
+                            onChange={(e) => handleFileChange(e, "cover")}
                         />
                     </label>
                 </div>
