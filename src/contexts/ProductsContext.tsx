@@ -6,7 +6,8 @@ import { Product } from "@/types/Products/Product";
 
 type Action =
     | { type: 'ADD_PRODUCT'; product: Product }
-    | { type: 'REMOVE_PRODUCT'; productId: number };
+    | { type: 'REMOVE_PRODUCT'; productId: number }
+    | { type: 'EDIT_PRODUCT'; product: Product };
 
 interface ProductsContextType {
     products: Product[];
@@ -28,6 +29,8 @@ const productsReducer = (state: Product[], action: Action): Product[] => {
             const filteredState = state.filter(product => product.id !== action.productId);
             console.log("Updated state after REMOVE_PRODUCT:", filteredState);
             return filteredState;
+        case 'EDIT_PRODUCT':
+            return state.map((p) => (p.id === action.product.id ? action.product : p));
         default:
             console.log("Unknown action type, returning current state.");
             return state;

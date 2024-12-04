@@ -1,6 +1,6 @@
 'use client';
 
-import { faGear } from "@fortawesome/free-solid-svg-icons";
+import { faGear, faUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { usePerfilContext } from "@/contexts/PerfilContext"; // Importando o contexto
 
@@ -15,11 +15,18 @@ export const TopBar = () => {
                 <a href="/dashboard">
                     <div className="text-white text-2xl">Olá, {dataPerfil.name}!</div>
                 </a>
-                <a href="/dashboard/profile">
-                    <div className="cursor-pointer rounded-full h-10 w-10 flex justify-center items-center">
-                        <FontAwesomeIcon icon={faGear} className="size-7 text-white" />
-                    </div>
-                </a>
+                <div className="flex">
+                    <a href="/" target="_blank">
+                        <div className="cursor-pointer rounded-full h-10 w-10 flex justify-center items-center">
+                            <FontAwesomeIcon icon={faUpRightFromSquare} className="size-6 text-white" />
+                        </div>
+                    </a>
+                    <a href="/dashboard/profile">
+                        <div className="cursor-pointer rounded-full h-10 w-10 flex justify-center items-center">
+                            <FontAwesomeIcon icon={faGear} className="size-6 text-white" />
+                        </div>
+                    </a>
+                </div>
             </div>
         </div>
     );

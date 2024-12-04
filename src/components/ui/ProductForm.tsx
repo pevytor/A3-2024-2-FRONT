@@ -1,25 +1,35 @@
 import { Product } from "@/types/Products/Product";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 interface ProductFormProps {
-    onSubmit: (product: Omit<Product, 'id'>) => void; // Esperando um produto sem o 'id'
+    product?: Product; // Produto opcional para edição
+    onSubmit: (product: Product) => void;
     onCancel: () => void;
+    onDelete?: () => void; // Adicionando a função de excluir
 }
 
-export const ProductForm: React.FC<ProductFormProps> = ({ onSubmit, onCancel }) => {
+export const ProductForm: React.FC<ProductFormProps> = ({ product, onSubmit, onCancel, onDelete }) => {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
-    const [price, setPrice] = useState<number | "">(''); // O preço pode ser número ou string vazia
+    const [price, setPrice] = useState<number | "">("");
     const [category, setCategory] = useState("");
     const [cover, setCover] = useState("");
 
+    useEffect(() => {
+        if (product) {
+            setTitle(product.title);
+            setDescription(product.description);
+            setPrice(product.price);
+            setCategory(product.category);
+            setCover(product.cover);
+        }
+    }, [product]);
+
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-
-        // Garantindo que price seja um número, ou 0 se estiver vazio
         const priceValue = price === "" ? 0 : price;
 
-        onSubmit({ title, description, price: priceValue, category, cover });
+        onSubmit({ id: product?.id || 0, title, description, price: priceValue, category, cover });
     };
 
     return (
@@ -83,7 +93,19 @@ export const ProductForm: React.FC<ProductFormProps> = ({ onSubmit, onCancel }) 
                 />
             </div>
 
-            <div className="flex gap-4 justify-end mt-4">
+            <div className="flex text-sm gap-2 justify-end mt-4">
+                {/* Botão de Excluir */}
+                {product && onDelete && (
+                    <button
+                        type="button"
+                        onClick={onDelete}
+                        className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+                    >
+                        Excluir Produto
+                    </button>
+                )}
+
+                {/* Botão de Cancelar */}
                 <button
                     type="button"
                     onClick={onCancel}
@@ -91,11 +113,13 @@ export const ProductForm: React.FC<ProductFormProps> = ({ onSubmit, onCancel }) 
                 >
                     Cancelar
                 </button>
+
+                {/* Botão de Salvar */}
                 <button
                     type="submit"
                     className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
                 >
-                    Adicionar Produto
+                    {product ? "Salvar Alterações" : "Adicionar Produto"}
                 </button>
             </div>
         </form>

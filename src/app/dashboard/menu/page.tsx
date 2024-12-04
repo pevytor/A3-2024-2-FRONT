@@ -13,8 +13,7 @@ import { Product } from "@/types/Products/Product";
 export default function Page() {
     const { products, dispatch } = useProducts();
     const [isModalOpen, setIsModalOpen] = useState(false);
-
-    console.log("Products in dashboard menu page:", products);
+    const [productToEdit, setProductToEdit] = useState<Product | null>(null);
 
     const handleModal = () => {
         setIsModalOpen((prev) => !prev);
@@ -25,10 +24,32 @@ export default function Page() {
             ...newProductData,
             id: products.length + 1,
         };
-        console.log("Adding product:", newProduct);
         dispatch({ type: 'ADD_PRODUCT', product: newProduct });
         handleModal();
     };
+
+    const handleEditProduct = (product: Product) => {
+        console.log("productToEdit (edit mode):", product); // Verifique o valor de product
+        setProductToEdit(product);
+        setIsModalOpen(true);
+    };
+
+    const handleSaveProduct = (editedProduct: Product) => {
+        dispatch({ type: 'EDIT_PRODUCT', product: editedProduct });
+        setProductToEdit(null);
+        setIsModalOpen(false);
+    };
+
+    const handleDeleteProduct = () => {
+        if (productToEdit) {
+            dispatch({ type: 'REMOVE_PRODUCT', productId: productToEdit.id });
+            setProductToEdit(null);
+            setIsModalOpen(false);
+        }
+    };
+
+    console.log("productToEdit:", productToEdit);  // Verifique o valor do productToEdit aqui também
+    console.log("Título passado para o Modal:", productToEdit ? 'Editar Produto' : 'Adicionar Produto');  // Verifique o título
 
     return (
         <>
@@ -43,15 +64,19 @@ export default function Page() {
                         category={null}
                         categoryRefs={React.createRef()}
                         products={products}
-                        onAdd={handleAddProduct}
+                        onEdit={handleEditProduct}
                     />
                 </div>
                 <Footer />
             </div>
 
-            <Modal isOpen={isModalOpen} onClose={handleModal}>
-                <h2 className="text-xl font-bold mb-4">Adicionar Produto</h2>
-                <ProductForm onSubmit={handleAddProduct} onCancel={handleModal} />
+            <Modal isOpen={isModalOpen} onClose={() => { setIsModalOpen(false); setProductToEdit(null); }} title={productToEdit ? 'Editar Produto' : 'Adicionar Produto'}>
+                <ProductForm
+                    product={productToEdit || undefined}
+                    onSubmit={productToEdit ? handleSaveProduct : handleAddProduct}
+                    onCancel={() => { setIsModalOpen(false); setProductToEdit(null); }}
+                    onDelete={handleDeleteProduct} // Passando a função de excluir
+                />
             </Modal>
         </>
     );

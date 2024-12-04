@@ -7,10 +7,12 @@ interface ProductsProps {
     category: string | null;
     categoryRefs: React.RefObject<Record<string, HTMLDivElement | null>>;
     products: Product[];
-    onAdd?: (newProduct: Product) => void;
+    onEdit?: (product: Product) => void;
+    onDelete?: (productId: number) => void;
 }
 
-export const Products: React.FC<ProductsProps> = ({ category, categoryRefs, products, onAdd }) => {
+export const Products: React.FC<ProductsProps> = ({ category, categoryRefs, products, onEdit, onDelete }) => {
+    // ...
     // Agrupar os produtos pela categoria
     const groupedProducts = products.reduce((acc, product) => {
         if (!acc[product.category]) acc[product.category] = [];
@@ -38,7 +40,8 @@ export const Products: React.FC<ProductsProps> = ({ category, categoryRefs, prod
                             <ProductItem
                                 key={product.id}
                                 product={product}
-                                onClick={() => console.log(`Produto ${product.title} clicado`)} // Exemplo de função de clique
+                                onClick={() => onEdit && onEdit(product)}
+                                onDelete={() => onDelete && onDelete(product.id)}
                             />
                         ))}
                     </div>

@@ -5,9 +5,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 type Props = {
     product: Product;
     onClick: () => void;
-}
+    onDelete: () => void;
+};
 
-export const ProductItem = ({ product, onClick }: Props) => {
+export const ProductItem = ({ product, onClick, onDelete }: Props) => {
     return (
         <div onClick={onClick} className="flex p-3 bg-white rounded-lg cursor-pointer hover:opacity-90 hover:drop-shadow-md group">
             <div className="w-28 h-28 rounded-lg bg-cover bg-center"
