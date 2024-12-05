@@ -12,10 +12,11 @@ export const Profile = () => {
 
     const [novaSenha, setNovaSenha] = useState("");
     const [confirmarSenha, setConfirmarSenha] = useState("");
+    const [avatarFileName, setAvatarFileName] = useState(""); // Nome do arquivo do avatar
+    const [coverFileName, setCoverFileName] = useState(""); // Nome do arquivo da capa
 
     const handleSave = () => {
         if (novaSenha || confirmarSenha) {
-            // Validar somente se os campos de senha estiverem preenchidos
             if (novaSenha === confirmarSenha) {
                 alert("Alterações salvas com sucesso!");
             } else {
@@ -24,7 +25,6 @@ export const Profile = () => {
             }
         }
 
-        // Atualizar os dados do perfil
         setDataPerfil((prev) => ({
             ...prev,
             name: dataPerfil.name,
@@ -45,6 +45,12 @@ export const Profile = () => {
                 ...prev,
                 [field]: URL.createObjectURL(file),
             }));
+
+            if (field === "avatar") {
+                setAvatarFileName(file.name);
+            } else if (field === "cover") {
+                setCoverFileName(file.name);
+            }
         }
     };
 
@@ -116,13 +122,10 @@ export const Profile = () => {
                         </label>
 
                         <div className="flex items-center">
-                            {/* Ícone de status baseado no estado do checkbox */}
                             <FontAwesomeIcon
-                                icon={dataPerfil.open ? faCheckCircle : faTimesCircle} // Usando as variáveis importadas
+                                icon={dataPerfil.open ? faCheckCircle : faTimesCircle}
                                 className={`mr-2 text-2xl ${dataPerfil.open ? 'text-green-500' : 'text-red-500'}`}
                             />
-
-                            {/* Checkbox para mudar o status */}
                             <input
                                 id="status"
                                 type="checkbox"
@@ -132,27 +135,27 @@ export const Profile = () => {
                             />
                         </div>
                     </div>
-
-
                 </div>
 
                 <div className="flex flex-col flex-1 gap-3 mt-8">
                     <label className="flex items-center justify-center text-gray-500 font-bold bg-white p-3 rounded-lg cursor-pointer hover:bg-zinc-200">
                         <FontAwesomeIcon icon={faUpload} className="mr-2 size-5" />
-                        {dataPerfil.avatar ? "Alterar foto de perfil" : "Selecionar foto de perfil"}
+                        {avatarFileName || (dataPerfil.avatar ? "Alterar foto de perfil" : "Selecionar foto de perfil")}
                         <input
                             type="file"
                             className="hidden"
+                            accept="image/*" // Apenas arquivos de imagem
                             onChange={(e) => handleFileChange(e, "avatar")}
                         />
                     </label>
 
                     <label className="flex items-center justify-center bg-white text-gray-500 font-bold p-3 rounded-lg cursor-pointer hover:bg-zinc-200">
                         <FontAwesomeIcon icon={faUpload} className="mr-2 size-5" />
-                        {dataPerfil.cover ? "Alterar foto de capa" : "Selecionar foto de capa"}
+                        {coverFileName || (dataPerfil.cover ? "Alterar foto de capa" : "Selecionar foto de capa")}
                         <input
                             type="file"
                             className="hidden"
+                            accept="image/*" // Apenas arquivos de imagem
                             onChange={(e) => handleFileChange(e, "cover")}
                         />
                     </label>
