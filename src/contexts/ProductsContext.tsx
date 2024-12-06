@@ -17,29 +17,23 @@ interface ProductsContextType {
 const ProductsContext = createContext<ProductsContextType | undefined>(undefined);
 
 const productsReducer = (state: Product[], action: Action): Product[] => {
-    console.log("Reducer called with action:", action);
-    console.log("Current state before action:", state);
 
     switch (action.type) {
         case 'ADD_PRODUCT':
             const updatedState = [...state, action.product];
-            console.log("Updated state after ADD_PRODUCT:", updatedState);
             return updatedState;
         case 'REMOVE_PRODUCT':
             const filteredState = state.filter(product => product.id !== action.productId);
-            console.log("Updated state after REMOVE_PRODUCT:", filteredState);
             return filteredState;
         case 'EDIT_PRODUCT':
             return state.map((p) => (p.id === action.product.id ? action.product : p));
         default:
-            console.log("Unknown action type, returning current state.");
             return state;
     }
 };
 
 export const ProductsProvider = ({ children }: { children: ReactNode }) => {
     const [products, dispatch] = useReducer(productsReducer, productList);
-    console.log("ProductsProvider initialized with products:", products);
 
     return (
         <ProductsContext.Provider value={{ products, dispatch }}>

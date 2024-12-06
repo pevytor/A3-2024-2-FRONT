@@ -7,7 +7,6 @@ import { useProducts } from "@/contexts/ProductsContext";
 
 export const Main = () => {
     const { products } = useProducts();
-    console.log("Products in Main component:", products);
 
     const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
     const categoryRefs = useRef<Record<string, HTMLDivElement | null>>({});

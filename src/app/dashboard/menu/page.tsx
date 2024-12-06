@@ -29,7 +29,6 @@ export default function Page() {
     };
 
     const handleEditProduct = (product: Product) => {
-        console.log("productToEdit (edit mode):", product); // Verifique o valor de product
         setProductToEdit(product);
         setIsModalOpen(true);
     };
@@ -47,9 +46,6 @@ export default function Page() {
             setIsModalOpen(false);
         }
     };
-
-    console.log("productToEdit:", productToEdit);  // Verifique o valor do productToEdit aqui também
-    console.log("Título passado para o Modal:", productToEdit ? 'Editar Produto' : 'Adicionar Produto');  // Verifique o título
 
     return (
         <>

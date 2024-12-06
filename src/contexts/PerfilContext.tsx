@@ -1,27 +1,42 @@
 'use client';
 
-import { perfilList } from '@/data/perfilList';
-import React, { createContext, useContext, useState, ReactNode } from 'react';
-import { Perfil } from '@/types/Perfil/Perfil'; // Importa o tipo Perfil
+import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { Perfil } from '@/types/Perfil/Perfil';
+import axios from 'axios';
 
 // Tipagem do contexto
 interface PerfilContextType {
-    dataPerfil: Perfil;
-    setDataPerfil: React.Dispatch<React.SetStateAction<Perfil>>;
+    dataPerfil: Perfil | null;
+    setDataPerfil: React.Dispatch<React.SetStateAction<Perfil | null>>;
 }
 
-// Cria o contexto com tipo genérico
+// Criação do contexto
 const PerfilContext = createContext<PerfilContextType | undefined>(undefined);
 
-// Tipagem para o Provedor
+// Provedor do contexto
 interface PerfilProviderProps {
     children: ReactNode;
 }
 
-// Criação do Provedor
 export const PerfilProvider: React.FC<PerfilProviderProps> = ({ children }) => {
-    const perfil = perfilList[0] as Perfil; // Assume que o primeiro item da lista é do tipo Perfil
-    const [dataPerfil, setDataPerfil] = useState<Perfil>(perfil);
+    const [dataPerfil, setDataPerfil] = useState<Perfil | null>(null);
+
+    // Busca dados da API no carregamento inicial
+    useEffect(() => {
+        const fetchPerfil = async () => {
+            try {
+                const response = await axios.get('/api/perfil');
+                const data: Perfil[] = response.data; // Tipagem explícita do dado
+                if (data.length > 0) {
+                    setDataPerfil(data[0]); // Seleciona o primeiro perfil
+                }
+            } catch (error) {
+                console.error('Erro ao buscar dados do perfil:', error);
+            }
+        };
+
+        fetchPerfil();
+    }, []); // Executa apenas uma vez ao montar o componente
 
     return (
         <PerfilContext.Provider value={{ dataPerfil, setDataPerfil }}>
@@ -30,7 +45,7 @@ export const PerfilProvider: React.FC<PerfilProviderProps> = ({ children }) => {
     );
 };
 
-// Hook personalizado para consumir o contexto
+// Hook personalizado
 export const usePerfilContext = (): PerfilContextType => {
     const context = useContext(PerfilContext);
     if (!context) {

@@ -31,7 +31,6 @@ export default function Signup() {
 
     setError('');
     alert('Cadastro realizado com sucesso!');
-    console.log('Usuário cadastrado:', { email, password });
   };
 
   return (

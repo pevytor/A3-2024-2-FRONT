@@ -13,7 +13,7 @@ export const TopBar = () => {
             <div className="boxed flex justify-between items-center w-full">
                 {/* Exibindo o nome do perfil do contexto */}
                 <a href="/dashboard">
-                    <div className="text-white text-2xl">Olá, {dataPerfil.name}!</div>
+                    <div className="text-white text-2xl">Olá, {dataPerfil?.name}!</div>
                 </a>
                 <div className="flex">
                     <a href="/" target="_blank">

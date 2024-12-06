@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { usePerfilContext } from "@/contexts/PerfilContext";
 import { useState } from "react";
 import { faCheckCircle, faTimesCircle } from "@fortawesome/free-regular-svg-icons";
+import axios from 'axios'; // Importando o axios
 
 export const Profile = () => {
     const { dataPerfil, setDataPerfil } = usePerfilContext();
@@ -15,7 +16,8 @@ export const Profile = () => {
     const [avatarFileName, setAvatarFileName] = useState(""); // Nome do arquivo do avatar
     const [coverFileName, setCoverFileName] = useState(""); // Nome do arquivo da capa
 
-    const handleSave = () => {
+    // Função para enviar as alterações para a API
+    const handleSave = async () => {
         if (novaSenha || confirmarSenha) {
             if (novaSenha === confirmarSenha) {
                 alert("Alterações salvas com sucesso!");
@@ -25,31 +27,53 @@ export const Profile = () => {
             }
         }
 
-        setDataPerfil((prev) => ({
-            ...prev,
-            name: dataPerfil.name,
-            addres: dataPerfil.addres,
-            open: dataPerfil.open,
-        }));
+        if (dataPerfil && dataPerfil.id !== undefined) {
+            // Verifique se o ID está presente
+            const perfilData = {
+                id: dataPerfil.id,  // Certifique-se de passar o ID
+                name: dataPerfil.name,
+                addres: dataPerfil.addres,
+                open: dataPerfil.open,
+                avatar: dataPerfil.avatar,  // Inclua avatar se necessário
+                cover: dataPerfil.cover,    // Inclua cover se necessário
+            };
 
-        alert("Alterações gerais salvas com sucesso!");
+            try {
+                // Envia as alterações para a API
+                const response = await axios.put(`/api/perfil/${dataPerfil.id}`, perfilData, {
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                });
+                alert("Alterações salvas com sucesso!");
+            } catch (error) {
+                console.error("Ocorreu um erro ao salvar as alterações.", error);
+                alert("Erro ao salvar as alterações.");
+            }
+        } else {
+            alert("O ID do perfil não foi encontrado.");
+        }
     };
 
+    // Função para lidar com o envio de arquivos
     const handleFileChange = (
         event: React.ChangeEvent<HTMLInputElement>,
         field: "avatar" | "cover"
     ) => {
         const file = event.target.files?.[0];
-        if (file) {
+        if (file && dataPerfil) {
+            // Criando a URL do arquivo para exibir no front-end
+            const fileUrl = URL.createObjectURL(file);
+
             setDataPerfil((prev) => ({
-                ...prev,
-                [field]: URL.createObjectURL(file),
+                ...prev!,
+                [field]: fileUrl, // Atualiza o campo com a URL da imagem
             }));
 
             if (field === "avatar") {
-                setAvatarFileName(file.name);
+                setAvatarFileName(file.name); // Atualiza o nome do arquivo do avatar
             } else if (field === "cover") {
-                setCoverFileName(file.name);
+                setCoverFileName(file.name); // Atualiza o nome do arquivo da capa
             }
         }
     };
@@ -69,8 +93,8 @@ export const Profile = () => {
                         <input
                             id="estabelecimento-nome"
                             type="text"
-                            value={dataPerfil.name}
-                            onChange={(e) => setDataPerfil({ ...dataPerfil, name: e.target.value })}
+                            value={dataPerfil?.name || ""}
+                            onChange={(e) => dataPerfil && setDataPerfil({ ...dataPerfil, name: e.target.value })}
                             className="w-full h-12 rounded-md text-lg p-3 mt-2 border border-gray-300 outline-none"
                         />
                     </div>
@@ -82,8 +106,8 @@ export const Profile = () => {
                         <input
                             id="endereco"
                             type="text"
-                            value={dataPerfil.addres}
-                            onChange={(e) => setDataPerfil({ ...dataPerfil, addres: e.target.value })}
+                            value={dataPerfil?.addres || ""}
+                            onChange={(e) => dataPerfil && setDataPerfil({ ...dataPerfil, addres: e.target.value })}
                             className="w-full h-12 rounded-md text-lg p-3 mt-2 border border-gray-300 outline-none"
                         />
                     </div>
@@ -123,14 +147,14 @@ export const Profile = () => {
 
                         <div className="flex items-center">
                             <FontAwesomeIcon
-                                icon={dataPerfil.open ? faCheckCircle : faTimesCircle}
-                                className={`mr-2 text-2xl ${dataPerfil.open ? 'text-green-500' : 'text-red-500'}`}
+                                icon={dataPerfil?.open ? faCheckCircle : faTimesCircle}
+                                className={`mr-2 text-2xl ${dataPerfil?.open ? 'text-green-500' : 'text-red-500'}`}
                             />
                             <input
                                 id="status"
                                 type="checkbox"
-                                checked={dataPerfil.open}
-                                onChange={(e) => setDataPerfil({ ...dataPerfil, open: e.target.checked })}
+                                checked={dataPerfil?.open || false}
+                                onChange={(e) => dataPerfil && setDataPerfil({ ...dataPerfil, open: e.target.checked })}
                                 className="form-checkbox h-5 w-5 text-green-500"
                             />
                         </div>
@@ -140,7 +164,7 @@ export const Profile = () => {
                 <div className="flex flex-col flex-1 gap-3 mt-8">
                     <label className="flex items-center justify-center text-gray-500 font-bold bg-white p-3 rounded-lg cursor-pointer hover:bg-zinc-200">
                         <FontAwesomeIcon icon={faUpload} className="mr-2 size-5" />
-                        {avatarFileName || (dataPerfil.avatar ? "Alterar foto de perfil" : "Selecionar foto de perfil")}
+                        {avatarFileName || (dataPerfil?.avatar ? "Alterar foto de perfil" : "Selecionar foto de perfil")}
                         <input
                             type="file"
                             className="hidden"
@@ -151,7 +175,7 @@ export const Profile = () => {
 
                     <label className="flex items-center justify-center bg-white text-gray-500 font-bold p-3 rounded-lg cursor-pointer hover:bg-zinc-200">
                         <FontAwesomeIcon icon={faUpload} className="mr-2 size-5" />
-                        {coverFileName || (dataPerfil.cover ? "Alterar foto de capa" : "Selecionar foto de capa")}
+                        {coverFileName || (dataPerfil?.cover ? "Alterar foto de capa" : "Selecionar foto de capa")}
                         <input
                             type="file"
                             className="hidden"

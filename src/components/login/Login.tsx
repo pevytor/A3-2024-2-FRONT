@@ -21,7 +21,6 @@ export const Login = () => {
 
     setError('');
     alert('Login bem-sucedido!');
-    console.log('Usuário autenticado:', { email, password });
   };
 
 
