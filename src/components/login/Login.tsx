@@ -1,32 +1,38 @@
-import Link from "next/link";
-import { useState } from "react";
-import { LogoDark } from "../ui/LogoDark";
-export const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+'use client';
 
-  const handleLogin = (event: React.FormEvent) => {
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import axios from "axios";
+import { LogoDark } from "../ui/LogoDark";
+
+export const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const router = useRouter();
+
+  const handleLogin = async (event: React.FormEvent) => {
     event.preventDefault();
 
-    if (email === '' || password === '') {
-      setError('Por favor, preencha todos os campos.');
-      return;
-    }
+    try {
+      // Busca os dados do primeiro perfil
+      const { data } = await axios.get("/api/perfil");
+      const user = data[0]; // Primeiro usuário no array
 
-    if (email !== 'user@gmail.com' || password !== 'password') {
-      setError('Credenciais inválidas.');
-      return;
+      // Compara o e-mail e senha
+      if (email === user.email && password === user.email) {
+        router.push("/dashboard"); // Redireciona para o dashboard
+      } else {
+        setError("Email ou senha incorretos.");
+      }
+    } catch (err) {
+      setError("Erro ao realizar login. Tente novamente.");
     }
-
-    setError('');
-    alert('Login bem-sucedido!');
   };
-
 
   return (
     <div className="w-[500px] p-5 flex items-center justify-center rounded-lg">
-      <div className="bg-white p-6 rounded shadow-md w-full ">
+      <div className="bg-white p-6 rounded shadow-md w-full">
         <div className="flex justify-center items-center p-5 mb-6">
           <LogoDark />
         </div>
@@ -65,9 +71,7 @@ export const Login = () => {
             />
           </div>
 
-          {error && (
-            <p className="text-red-500 text-sm mb-4">{error}</p>
-          )}
+          {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
 
           <div className="mb-4">
             <button
@@ -76,19 +80,15 @@ export const Login = () => {
             >
               Login
             </button>
-          </div>
-
-          <div className="text-center">
-            <p className="text-gray-600">Não tem uma conta?</p>
-            <Link
-              href="/signup"
-              className="text-blue-600 hover:underline"
-            >
-              Crie sua conta
-            </Link>
+            <div className="text-sm mt-2">
+              Não possui uma conta?{" "}
+              <a href="/signup" className="text-blue-500 font-bold">
+                Cadastre-se
+              </a>
+            </div>
           </div>
         </form>
       </div>
     </div>
   );
-}
+};

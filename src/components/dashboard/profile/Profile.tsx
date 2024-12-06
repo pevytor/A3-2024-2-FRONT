@@ -33,6 +33,7 @@ export const Profile = () => {
                 id: dataPerfil.id,  // Certifique-se de passar o ID
                 name: dataPerfil.name,
                 addres: dataPerfil.addres,
+                email: dataPerfil.email,
                 open: dataPerfil.open,
                 avatar: dataPerfil.avatar,  // Inclua avatar se necessário
                 cover: dataPerfil.cover,    // Inclua cover se necessário
@@ -93,6 +94,7 @@ export const Profile = () => {
                         <input
                             id="estabelecimento-nome"
                             type="text"
+                            placeholder="Nome do Estabelecimento"
                             value={dataPerfil?.name || ""}
                             onChange={(e) => dataPerfil && setDataPerfil({ ...dataPerfil, name: e.target.value })}
                             className="w-full h-12 rounded-md text-lg p-3 mt-2 border border-gray-300 outline-none"
@@ -106,8 +108,23 @@ export const Profile = () => {
                         <input
                             id="endereco"
                             type="text"
+                            placeholder="Endereço"
                             value={dataPerfil?.addres || ""}
                             onChange={(e) => dataPerfil && setDataPerfil({ ...dataPerfil, addres: e.target.value })}
+                            className="w-full h-12 rounded-md text-lg p-3 mt-2 border border-gray-300 outline-none"
+                        />
+                    </div>
+
+                    <div className="mb-4">
+                        <label htmlFor="endereco" className="text-base font-bold text-gray-500">
+                            Email
+                        </label>
+                        <input
+                            id="email"
+                            type="text"
+                            placeholder="Email"
+                            value={dataPerfil?.email || ""}
+                            onChange={(e) => dataPerfil && setDataPerfil({ ...dataPerfil, email: e.target.value })}
                             className="w-full h-12 rounded-md text-lg p-3 mt-2 border border-gray-300 outline-none"
                         />
                     </div>
