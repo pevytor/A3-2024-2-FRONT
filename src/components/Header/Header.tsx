@@ -18,7 +18,7 @@ export const Header = () => {
             <div
                 className="w-full bg-black bg-cover bg-center opacity-99 px-1"
                 style={{
-                    backgroundImage: `url('${coverImage}')`,
+                    backgroundImage: `url('/assets/images/cover1.jpg')`, // ${coverImage}
                 }}
             >
                 <div className="boxed flex justify-between items-center h-44 md:h-52">

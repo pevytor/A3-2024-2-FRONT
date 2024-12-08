@@ -1,9 +1,11 @@
-import { productList } from "@/data/productList";
 import { Button } from "@/components/ui/Button";
+import { useProducts } from "@/contexts/ProductsContext";
 
 export const Categories = ({ onCategorySelect }: { onCategorySelect: (category: string | null) => void }) => {
-    // Extrai categorias únicas dos produtos usando Set para garantir que não haja duplicatas
-    const categories = Array.from(new Set(productList.map(product => product.category)));
+    const { products } = useProducts();
+
+    // Extrai categorias únicas dos produtos usando Set
+    const categories = Array.from(new Set(products.map(product => product.category)));
 
     return (
         <div className="flex gap-3 overflow-x-auto whitespace-nowrap scrollbar-none">

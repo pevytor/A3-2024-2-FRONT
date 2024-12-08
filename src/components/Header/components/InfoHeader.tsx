@@ -17,7 +17,7 @@ export const InfoHeader = () => {
             <div
                 className="h-24 w-24 bg-white rounded-lg bg-cover bg-center"
                 style={{
-                    backgroundImage: `url('${avatarImage}')`, // Correção no uso da variável avatarImage
+                    backgroundImage: `url('/assets/images/avatar1.jpg')`, // Correção no uso da variável avatarImage `url('${avatarImage}')`,
                 }}
             ></div>
             <div>

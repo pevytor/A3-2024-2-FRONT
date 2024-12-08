@@ -17,7 +17,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({ product, onSubmit, onC
 
     useEffect(() => {
         if (product) {
-            setTitle(product.title);
+            setTitle(product.name);
             setDescription(product.description);
             setPrice(product.price);
             setCategory(product.category);
@@ -29,7 +29,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({ product, onSubmit, onC
         e.preventDefault();
         const priceValue = price === "" ? 0 : price;
 
-        onSubmit({ id: product?.id || 0, title, description, price: priceValue, category, cover });
+        onSubmit({ id: product?.id || 0, name, description, price: priceValue, category, cover });
     };
 
     return (
