@@ -1,4 +1,6 @@
 /** @type {import('next').NextConfig} */
+const path = require('path');
+
 const nextConfig = {
   reactStrictMode: true,
   async rewrites() {
@@ -8,6 +10,10 @@ const nextConfig = {
         destination: 'https://api-a3-asgz.onrender.com/:path*', // Alvo
       },
     ];
+  },
+  webpack(config) {
+    config.resolve.alias['@'] = path.resolve(__dirname, 'src');
+    return config;
   },
 };
 
