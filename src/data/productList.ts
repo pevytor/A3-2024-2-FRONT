@@ -3,7 +3,7 @@ import { Product } from "@/types/Products/Product";
 export const productList: Product[] = [
     {
         id: 1,
-        title: 'X Bacon Duplo',
+        name: 'X Bacon Duplo',
         description: 'Pão, Blend Bovino 180g, Bacon crocante, Queijo Mussarela, Alface fresca, Cebola caramelizada, Molho especial da casa.',
         price: 25,
         category: 'Hamburguer',
@@ -11,7 +11,7 @@ export const productList: Product[] = [
     },
     {
         id: 2,
-        title: 'X Cheddar Bacon',
+        name: 'X Cheddar Bacon',
         description: 'Pão macio, Blend Bovino 200g, Bacon crocante, Queijo Cheddar derretido, Alface americana, Cebola roxa, Molho barbecue.',
         price: 28,
         category: 'Hamburguer',
@@ -19,7 +19,7 @@ export const productList: Product[] = [
     },
     {
         id: 3,
-        title: 'X Frango Crocante',
+        name: 'X Frango Crocante',
         description: 'Pão de leite, Peito de frango empanado e frito, Queijo Cheddar, Alface, Tomate, Molho de maionese temperada.',
         price: 22,
         category: 'Hamburguer',
@@ -27,7 +27,7 @@ export const productList: Product[] = [
     },
     {
         id: 4,
-        title: 'X Vegano',
+        name: 'X Vegano',
         description: 'Pão integral, Hambúrguer de grão-de-bico, Alface, Tomate, Cebola roxa, Molho tahine.',
         price: 24,
         category: 'Hamburguer',
@@ -35,7 +35,7 @@ export const productList: Product[] = [
     },
     {
         id: 5,
-        title: 'X Caliente',
+        name: 'X Caliente',
         description: 'Pão com gergelim, Blend Bovino 180g, Bacon, Queijo Pepper Jack, Jalapeños, Cebola roxa, Molho picante.',
         price: 26,
         category: 'Hamburguer',
@@ -43,7 +43,7 @@ export const productList: Product[] = [
     },
     {
         id: 6,
-        title: 'X Classic',
+        name: 'X Classic',
         description: 'Pão tradicional, Blend Bovino 150g, Queijo Mussarela, Alface, Tomate, Molho clássico de mostarda e ketchup.',
         price: 18,
         category: 'Hamburguer',
@@ -51,7 +51,7 @@ export const productList: Product[] = [
     },
     {
         id: 7,
-        title: 'X Classic',
+        name: 'X Classic',
         description: 'Pão tradicional, Blend Bovino 150g, Queijo Mussarela, Alface, Tomate, Molho clássico de mostarda e ketchup.',
         price: 18,
         category: 'Pastel',
@@ -59,7 +59,7 @@ export const productList: Product[] = [
     },
     {
         id: 8,
-        title: 'X Classic',
+        name: 'X Classic',
         description: 'Pão tradicional, Blend Bovino 150g, Queijo Mussarela, Alface, Tomate, Molho clássico de mostarda e ketchup.',
         price: 18,
         category: 'Pastel',
@@ -67,7 +67,7 @@ export const productList: Product[] = [
     },
     {
         id: 9,
-        title: 'X Classic',
+        name: 'X Classic',
         description: 'Pão tradicional, Blend Bovino 150g, Queijo Mussarela, Alface, Tomate, Molho clássico de mostarda e ketchup.',
         price: 18,
         category: 'Bebidas',
@@ -75,7 +75,7 @@ export const productList: Product[] = [
     },
     {
         id: 10,
-        title: 'Guaraná Antarctica',
+        name: 'Guaraná Antarctica',
         description: 'Guaraná Antarctica Zero',
         price: 18,
         category: 'Bebidas',

@@ -5,8 +5,9 @@ export const perfilList: Perfil[] = [
         id: 1,
         name: 'Burger King',
         addres: 'Av. Salgado Filho, 1234 - Lagoa Nova, Natal, RN 59056005',
-        avatar: 'avatar1.jpg',
-        cover: 'cover1.jpg',
+        avatar: '',
+        cover: '',
         open: true,
+        email: 'contact@burgerking.com' // Adicione a chave `email` obrigatória
     }
-]
+];
