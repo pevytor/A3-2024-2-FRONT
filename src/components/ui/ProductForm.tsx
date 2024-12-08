@@ -9,7 +9,7 @@ interface ProductFormProps {
 }
 
 export const ProductForm: React.FC<ProductFormProps> = ({ product, onSubmit, onCancel, onDelete }) => {
-    const [title, setTitle] = useState("");
+    const [name, setName] = useState("");
     const [description, setDescription] = useState("");
     const [price, setPrice] = useState<number | "">("");
     const [category, setCategory] = useState("");
@@ -17,11 +17,11 @@ export const ProductForm: React.FC<ProductFormProps> = ({ product, onSubmit, onC
 
     useEffect(() => {
         if (product) {
-            setTitle(product.name);
+            setName(product.name);
             setDescription(product.description);
             setPrice(product.price);
             setCategory(product.category);
-            setCover(product.cover);
+            setCover(product.cover || "");
         }
     }, [product]);
 
@@ -35,12 +35,12 @@ export const ProductForm: React.FC<ProductFormProps> = ({ product, onSubmit, onC
     return (
         <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-                <label htmlFor="title" className="block text-sm font-medium text-gray-700">Título</label>
+                <label htmlFor="name" className="block text-sm font-medium text-gray-700">Nome</label>
                 <input
                     type="text"
-                    id="title"
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
+                    id="name"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
                     className="mt-1 block w-full border border-gray-300 rounded-md p-2"
                     required
                 />

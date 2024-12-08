@@ -11,7 +11,7 @@ import { useProducts } from "@/contexts/ProductsContext";
 import { Product } from "@/types/Products/Product";
 
 export default function Page() {
-    const { products, dispatch } = useProducts();
+    const { products, addProduct, editProduct, deleteProduct } = useProducts();
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [productToEdit, setProductToEdit] = useState<Product | null>(null);
 
@@ -19,12 +19,8 @@ export default function Page() {
         setIsModalOpen((prev) => !prev);
     };
 
-    const handleAddProduct = (newProductData: Omit<Product, 'id'>) => {
-        const newProduct: Product = {
-            ...newProductData,
-            id: products.length + 1,
-        };
-        dispatch({ type: 'ADD_PRODUCT', product: newProduct });
+    const handleAddProduct = async (newProductData: Omit<Product, 'id'>) => {
+        await addProduct(newProductData);
         handleModal();
     };
 
@@ -33,15 +29,15 @@ export default function Page() {
         setIsModalOpen(true);
     };
 
-    const handleSaveProduct = (editedProduct: Product) => {
-        dispatch({ type: 'EDIT_PRODUCT', product: editedProduct });
+    const handleSaveProduct = async (editedProduct: Product) => {
+        await editProduct(editedProduct);
         setProductToEdit(null);
         setIsModalOpen(false);
     };
 
-    const handleDeleteProduct = () => {
+    const handleDeleteProduct = async () => {
         if (productToEdit) {
-            dispatch({ type: 'REMOVE_PRODUCT', productId: productToEdit.id });
+            await deleteProduct(productToEdit.id);
             setProductToEdit(null);
             setIsModalOpen(false);
         }
@@ -71,7 +67,7 @@ export default function Page() {
                     product={productToEdit || undefined}
                     onSubmit={productToEdit ? handleSaveProduct : handleAddProduct}
                     onCancel={() => { setIsModalOpen(false); setProductToEdit(null); }}
-                    onDelete={handleDeleteProduct} // Passando a função de excluir
+                    onDelete={handleDeleteProduct}
                 />
             </Modal>
         </>

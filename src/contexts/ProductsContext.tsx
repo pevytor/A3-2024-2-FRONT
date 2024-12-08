@@ -13,6 +13,9 @@ type Action =
 interface ProductsContextType {
     products: Product[];
     dispatch: React.Dispatch<Action>;
+    addProduct: (product: Omit<Product, 'id'>) => Promise<void>;
+    editProduct: (product: Product) => Promise<void>;
+    deleteProduct: (productId: number) => Promise<void>;
 }
 
 const ProductsContext = createContext<ProductsContextType | undefined>(undefined);
@@ -38,7 +41,7 @@ export const ProductsProvider = ({ children }: { children: ReactNode }) => {
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                const response = await axios.get<Product[]>('/api/product'); // Caminho relativo
+                const response = await axios.get<Product[]>('/api/product');
                 dispatch({ type: 'SET_PRODUCTS', products: response.data });
             } catch (error) {
                 console.error("Erro ao buscar produtos:", error);
@@ -48,8 +51,35 @@ export const ProductsProvider = ({ children }: { children: ReactNode }) => {
         fetchProducts();
     }, []);
 
+    const addProduct = async (product: Omit<Product, 'id'>) => {
+        try {
+            const response = await axios.post<Product>('/api/product', product);
+            dispatch({ type: 'ADD_PRODUCT', product: response.data });
+        } catch (error) {
+            console.error("Erro ao adicionar produto:", error);
+        }
+    };
+
+    const editProduct = async (product: Product) => {
+        try {
+            await axios.put(`/api/product/${product.id}`, product);
+            dispatch({ type: 'EDIT_PRODUCT', product });
+        } catch (error) {
+            console.error("Erro ao editar produto:", error);
+        }
+    };
+
+    const deleteProduct = async (productId: number) => {
+        try {
+            await axios.delete(`/api/product/${productId}`);
+            dispatch({ type: 'REMOVE_PRODUCT', productId });
+        } catch (error) {
+            console.error("Erro ao excluir produto:", error);
+        }
+    };
+
     return (
-        <ProductsContext.Provider value={{ products, dispatch }}>
+        <ProductsContext.Provider value={{ products, dispatch, addProduct, editProduct, deleteProduct }}>
             {children}
         </ProductsContext.Provider>
     );
