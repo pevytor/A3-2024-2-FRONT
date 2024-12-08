@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { Navbar } from "@/components/dashboard/menu/Navbar";
 import { TopBar } from "@/components/dashboard/TopBar";
-import { Products } from "@/components/main/components/Products";
+import { Products } from '../../../components/main/components/Products';
 import { Footer } from "@/components/footer/Footer";
 import { Modal } from "@/components/ui/Modal";
 import { ProductForm } from "@/components/ui/ProductForm";
